@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+
 require("dotenv").config();
 
 const { SECRET_KEY } = process.env;
@@ -7,10 +8,14 @@ const { SECRET_KEY } = process.env;
 const authMiddleware = async (req, res, next) => {
   const { authorization = "" } = req.headers;
 
+  if (!authorization) {
+    next(new Error("Please, provide a token in request authorization header"));
+  }
+
   const [bearer, token] = authorization.split(" ");
 
   if (bearer !== "Bearer") {
-    throw new Error("Not authorized");
+    next(new Error("Not authorized"));
   }
   try {
     const { _id } = jwt.decode(token, SECRET_KEY);
@@ -18,7 +23,7 @@ const authMiddleware = async (req, res, next) => {
     const user = await User.findById(_id);
 
     if (!user || !user.token) {
-      throw new Error("Not authorized");
+      next(new Error("Not authorized2"));
     }
     req.user = user;
 
