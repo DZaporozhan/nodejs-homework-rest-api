@@ -5,12 +5,14 @@ const {
   current,
   subscriptionUpdate,
 } = require("../service/index");
+const gravatar = require("gravatar");
 
 class AuthControllers {
   singup = async (req, res, next) => {
     const { email, password } = req.body;
+    const avatarURL = gravatar.url(email);
     try {
-      const result = await registration(email, password);
+      const result = await registration(email, password, avatarURL);
       res.status(201).json(result);
     } catch (error) {
       next(error);
@@ -18,6 +20,7 @@ class AuthControllers {
   };
   singin = async (req, res, next) => {
     const { email, password } = req.body;
+
     try {
       const result = await login(email, password);
 

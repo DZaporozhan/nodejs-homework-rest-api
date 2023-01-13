@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../../models/");
 require("dotenv").config();
 
-const registration = async (email, password) => {
+const registration = async (email, password, avatarURL) => {
   const user = await User.findOne({ email });
 
   if (user) {
     throw new Error("Email in use");
   }
 
-  const newUser = new User({ email, password });
+  const newUser = new User({ email, password, avatarURL });
   await newUser.save();
 
   return {
