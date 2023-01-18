@@ -5,15 +5,15 @@ const {
   updateContactService,
   removeContactService,
   changeFavoriteStatusService,
-} = require("./contacts/index");
+} = require("./contacts");
 
 const {
   registration,
   login,
   logout,
-  current,
+  updateAvatar,
   subscriptionUpdate,
-} = require("./auth/index");
+} = require("./auth");
 
 module.exports = {
   getAllContactsService,
@@ -25,6 +25,6 @@ module.exports = {
   registration,
   login,
   logout,
-  current,
+  updateAvatar,
   subscriptionUpdate,
 };

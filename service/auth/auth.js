@@ -2,14 +2,15 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../../models/");
 require("dotenv").config();
+const gravatar = require("gravatar");
 
-const registration = async (email, password, avatarURL) => {
+const registration = async (email, password) => {
   const user = await User.findOne({ email });
 
   if (user) {
     throw new Error("Email in use");
   }
-
+  const avatarURL = gravatar.url(email);
   const newUser = new User({ email, password, avatarURL });
   await newUser.save();
 

@@ -6,10 +6,12 @@ const {
   subscriptionUpdate,
 } = require("./auth");
 
+const updateAvatar = require("./updateAvatar");
+
 module.exports = {
   registration,
   login,
   logout,
-
+  updateAvatar,
   subscriptionUpdate,
 };
