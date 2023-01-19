@@ -2,15 +2,16 @@ const {
   registration,
   login,
   logout,
-  current,
+  updateAvatar,
   subscriptionUpdate,
 } = require("../service/index");
-
+const multer = require("multer");
 class AuthControllers {
   singup = async (req, res, next) => {
     const { email, password } = req.body;
+
     try {
-      const result = await registration(email, password);
+      const result = await registration(email, password, avatarURL);
       res.status(201).json(result);
     } catch (error) {
       next(error);
@@ -18,6 +19,7 @@ class AuthControllers {
   };
   singin = async (req, res, next) => {
     const { email, password } = req.body;
+
     try {
       const result = await login(email, password);
 
@@ -78,6 +80,17 @@ class AuthControllers {
       });
     } catch (e) {
       next(e);
+    }
+  };
+  updateAvatar = async (req, res, next) => {
+    const { path: tempUpload, originalname } = req.file;
+    const { _id } = req.user;
+    try {
+      const result = await updateAvatar(_id, tempUpload, originalname);
+      res.json({ result });
+    } catch (error) {
+      await fs.unlink(req.file.path);
+      throw error;
     }
   };
 }
