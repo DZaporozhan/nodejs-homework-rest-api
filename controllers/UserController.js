@@ -5,14 +5,13 @@ const {
   updateAvatar,
   subscriptionUpdate,
   verifyEmail,
-} = require("../service/index");
-const multer = require("multer");
+} = require("../service");
 class AuthControllers {
   singup = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, subscription } = req.body;
 
     try {
-      const result = await registration(email, password, avatarURL);
+      const result = await registration(email, password, subscription);
       res.status(201).json(result);
     } catch (error) {
       next(error);
@@ -97,12 +96,8 @@ class AuthControllers {
   verifyEmail = async (req, res) => {
     const { verificationToken } = req.params;
     try {
-      await verifyEmail(verificationToken);
-      res.json({
-        status: "success",
-        code: 200,
-        message: "Verification is successful",
-      });
+      const result = await verifyEmail(verificationToken);
+      res.json(result);
     } catch (error) {}
   };
 }

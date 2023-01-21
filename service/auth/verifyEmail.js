@@ -10,6 +10,11 @@ const verifyEmail = async (verificationToken) => {
     verify: true,
     verificationToken: null,
   });
+  return {
+    status: "success",
+    code: 200,
+    message: "Verification is successful",
+  };
 };
 
 module.exports = verifyEmail;
