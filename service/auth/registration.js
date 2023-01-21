@@ -2,6 +2,7 @@ const { User } = require("../../models/");
 const gravatar = require("gravatar");
 const { v4 } = require("uuid");
 const sendEmail = require("../sendgrid");
+
 const registration = async (email, password, subscription) => {
   const user = await User.findOne({ email });
 

@@ -14,6 +14,7 @@ const {
   updateAvatar,
   subscriptionUpdate,
   verifyEmail,
+  reVerifyEmail,
 } = require("./auth");
 
 const sendEmail = require("./sendgrid");
@@ -32,4 +33,5 @@ module.exports = {
   subscriptionUpdate,
   verifyEmail,
   sendEmail,
+  reVerifyEmail,
 };

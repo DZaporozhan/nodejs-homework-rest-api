@@ -5,6 +5,7 @@ const {
   updateAvatar,
   subscriptionUpdate,
   verifyEmail,
+  reVerifyEmail,
 } = require("../service");
 class AuthControllers {
   singup = async (req, res, next) => {
@@ -38,8 +39,8 @@ class AuthControllers {
         status: "No content",
         code: "204",
       });
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   };
 
@@ -73,8 +74,8 @@ class AuthControllers {
           user,
         },
       });
-    } catch (e) {
-      next(e);
+    } catch (error) {
+      next(error);
     }
   };
   updateAvatar = async (req, res, next) => {
@@ -85,15 +86,26 @@ class AuthControllers {
       res.json({ result });
     } catch (error) {
       await fs.unlink(req.file.path);
-      throw error;
+      next(error);
     }
   };
-  verifyEmail = async (req, res) => {
+  verifyEmail = async (req, res, next) => {
     const { verificationToken } = req.params;
     try {
       const result = await verifyEmail(verificationToken);
       res.json(result);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
+  };
+  reVerificationEmail = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      const result = await reVerifyEmail(email);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   };
 }
 
