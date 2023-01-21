@@ -1,12 +1,8 @@
-const {
-  registration,
-  login,
-  logout,
-
-  subscriptionUpdate,
-} = require("./auth");
-
+const subscriptionUpdate = require("./subscriptionUpdate");
 const updateAvatar = require("./updateAvatar");
+const registration = require("./registration");
+const login = require("./login");
+const logout = require("./logout");
 
 module.exports = {
   registration,
