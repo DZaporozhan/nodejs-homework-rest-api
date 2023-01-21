@@ -23,12 +23,7 @@ class AuthControllers {
     try {
       const result = await login(email, password);
 
-      res.status(201).json({
-        token: result,
-        user: {
-          email,
-        },
-      });
+      res.status(201).json(result);
     } catch (error) {
       next(error);
     }
