@@ -13,7 +13,10 @@ const {
   logout,
   updateAvatar,
   subscriptionUpdate,
+  verifyEmail,
 } = require("./auth");
+
+const sendEmail = require("./sendgrid");
 
 module.exports = {
   getAllContactsService,
@@ -27,4 +30,6 @@ module.exports = {
   logout,
   updateAvatar,
   subscriptionUpdate,
+  verifyEmail,
+  sendEmail,
 };

@@ -4,6 +4,7 @@ const {
   logout,
   updateAvatar,
   subscriptionUpdate,
+  verifyEmail,
 } = require("../service/index");
 const multer = require("multer");
 class AuthControllers {
@@ -92,6 +93,17 @@ class AuthControllers {
       await fs.unlink(req.file.path);
       throw error;
     }
+  };
+  verifyEmail = async (req, res) => {
+    const { verificationToken } = req.params;
+    try {
+      await verifyEmail(verificationToken);
+      res.json({
+        status: "success",
+        code: 200,
+        message: "Verification is successful",
+      });
+    } catch (error) {}
   };
 }
 

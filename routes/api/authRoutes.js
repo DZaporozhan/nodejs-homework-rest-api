@@ -22,5 +22,6 @@ authRouter.patch(
   uploadMiddleware.single("avatar"),
   AuthControllers.updateAvatar
 );
+authRouter.get("/verify/:verificationToken", AuthControllers.verifyEmail);
 
 module.exports = authRouter;
